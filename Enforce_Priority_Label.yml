@@ -1,0 +1,25 @@
+name: Enforce Priority Label
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check-priority:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Priority Label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const priorityLabels = ['P1 - Highest', 'P2 - High', 'P3 - Medium', 'P4 - Low', 'P5 - Lowest'];
+            const labels = issue.labels.map(label => label.name);
+            const hasPriority = labels.some(label => priorityLabels.includes(label));
+            if (!hasPriority) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: ['P5 - Lowest']
+              });
+            }
