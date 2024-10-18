@@ -3,3 +3,7 @@
 <br/></div>
 
 WhyDRS is a free educational resource about the financial markets in the United States – specifically direct registration, a method of personal ownership available to everyone but rarely used. Keeping long investments in your own name - [with the SEC approved Direct Registration System](https://www.sec.gov/resources-for-investors/investor-alerts-bulletins/investorpubsholdsechtm) - provides multiple benefits and safeties not available through other means.
+
+## Current Projects
+
+[![Project Board](https://img.shields.io/badge/Project-Boards-blue)](https://github.com/orgs/whydrs/projects)
