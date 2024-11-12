@@ -2,84 +2,91 @@ import os
 from datetime import datetime, timedelta
 from github import GithubIntegration, Github
 
-# Get environment variables
-app_id = os.environ['APP_ID']
-private_key = os.environ['APP_PRIVATE_KEY']
+# Retrieve environment variables containing GitHub App credentials
+app_id = os.environ['APP_ID']                # GitHub App ID
+private_key = os.environ['APP_PRIVATE_KEY']  # GitHub App private key in PEM format
 
-# Initialize GitHub Integration
+# Initialize a GitHubIntegration instance with your App ID and private key
 integration = GithubIntegration(app_id, private_key)
 
-# Get installation ID
+# Fetch all installations of your GitHub App
 installations = integration.get_installations()
 if not installations:
-    print("No installations found for the GitHub App.")
-    exit(1)
+    print("No installations found for the GitHub App.")  # No installations detected
+    exit(1)  # Exit the script with an error code
 
-installation_id = installations[0].id
+# Obtain the installation ID (assuming the app is installed once)
+installation_id = installations[0].id  # Get the ID of the first installation
 
-# Get an access token
+# Generate an access token for the installation
 access_token = integration.get_access_token(installation_id).token
 
-# Initialize GitHub client
+# Initialize a GitHub client using the access token
 g = Github(login_or_token=access_token)
 
-# Variables
-org_name = 'WhyDRS'  # Your organization name
-project_number = 1   # Replace with your project's number
+# Define variables for your organization and project
+org_name = 'WhyDRS'       # Your organization's name
+project_number = 3        # The number of your project (from the project's URL)
 
-# Get the organization
+# Retrieve the organization object
 org = g.get_organization(org_name)
 
-# Get the project
+# Fetch all projects in the organization
 projects = org.get_projects()
-project = None
+project = None  # Initialize the project variable
+
+# Search for the project with the specified project number
 for p in projects:
     if p.number == project_number:
-        project = p
-        break
+        project = p  # Assign the found project
+        break        # Exit the loop once the project is found
 
+# If the project was not found, exit the script
 if not project:
     print(f"Project number {project_number} not found.")
     exit(1)
 
-# Calculate time since last run (24 hours ago)
+# Calculate the timestamp for 24 hours ago
 since_time = datetime.utcnow() - timedelta(days=1)
 
-# Get all repositories in the organization
+# Fetch all repositories within the organization
 repos = org.get_repos()
 
+# Iterate over each repository
 for repo in repos:
-    # Get issues created since the last run
+    # Fetch open issues created since 'since_time'
     issues = repo.get_issues(state='open', since=since_time)
 
+    # Iterate over each issue
     for issue in issues:
-        # Check if the issue was created since the last run
+        # Confirm the issue was created after 'since_time'
         if issue.created_at < since_time:
-            continue
+            continue  # Skip issues created before 'since_time'
 
-        # Check if issue is already in the project
-        in_project = False
-        for column in project.get_columns():
-            for card in column.get_cards():
-                if card.content_url == issue.url:
-                    in_project = True
-                    break
+        # Check if the issue is already included in the project
+        in_project = False  # Flag to indicate presence in the project
+        for column in project.get_columns():       # Iterate over project columns
+            for card in column.get_cards():        # Iterate over cards in the column
+                if card.content_url == issue.url:  # Compare card content URL with issue URL
+                    in_project = True              # Issue is already in the project
+                    break                          # Exit inner loop
             if in_project:
-                break
+                break  # Exit outer loop if issue is found
 
+        # If the issue is not in the project, proceed to add it
         if not in_project:
-            # Get or create column named after the repository
+            # Attempt to find a column named after the repository
             columns = project.get_columns()
-            column = None
+            column = None  # Initialize the column variable
             for col in columns:
-                if col.name == repo.name:
-                    column = col
-                    break
+                if col.name == repo.name:  # Check if column name matches repository name
+                    column = col           # Assign the existing column
+                    break                  # Exit the loop
 
+            # If the column does not exist, create it
             if not column:
-                # Create a new column
-                column = project.create_column(repo.name)
+                column = project.create_column(repo.name)  # Create a new column
 
             # Add the issue to the project column
-            column.create_card(content_id=issue.id, content_type="Issue")
-            print(f"Issue #{issue.number} in {repo.name} added to project.")
+            column.create_card(content_id=issue.id, content_type="Issue")  # Add the issue as a card
+            print(f"Issue #{issue.number} in {repo.name} added to project.")  # Confirmation message
