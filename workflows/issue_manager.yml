@@ -1,45 +1,41 @@
-name: WhyDRS Issue Manager
+name: WhyDRS Issue Manager  # Name of the workflow
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs once a day at midnight UTC
-  workflow_dispatch:       # Allows manual triggering
+    - cron: '0 0 * * *'    # Schedule the workflow to run once a day at midnight UTC
+  workflow_dispatch:        # Allow manual triggering of the workflow from the GitHub UI
 
 jobs:
   update-project:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # The workflow runs on the latest Ubuntu runner
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Checks out the repository to the runner
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v4  # Sets up the Python environment
         with:
-          python-version: '3.x'
+          python-version: '3.x'        # Specifies the Python version to use
 
       - name: Install Dependencies
-        # Edge Case 18: Error Handling and Notifications
-        # Install necessary Python packages
         run: |
-          python -m pip install --upgrade pip
-          pip install PyGithub
+          pip install PyGithub  # Installs the PyGithub library needed for the script
 
       - name: Run Script
-        # Pass the necessary environment variables
         env:
-          APP_ID: ${{ secrets.APP_ID }}
-          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+          APP_ID: ${{ secrets.APP_ID }}                   # Passes the GitHub App ID from secrets
+          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }} # Passes the GitHub App private key from secrets
         run: |
-          python issue_manager_script.py
+          python issue_manager_script.py  # Executes the Python script
 
       - name: Notify on Failure
-        if: failure()
-        uses: actions/github-script@v6
+        if: failure()  # This step runs only if the previous steps failed
+        uses: actions/github-script@v6  # Uses the github-script action to run a script
         with:
           script: |
-            github.issues.create({
+            github.issues.createComment({
               owner: 'WhyDRS',
-              repo: '.github',  # Repository to create the issue in
-              title: 'Issue Manager Workflow Failed',
-              body: 'The issue manager workflow failed in the latest run. Please check the logs for details.'
+              repo: '.github',      # Repository where the issue or notification will be posted
+              issue_number: 1,      # Issue number to comment on (you can create a dedicated issue)
+              body: 'The issue manager workflow failed. Please check the logs for details.'
             })
