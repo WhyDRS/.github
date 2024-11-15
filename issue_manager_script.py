@@ -209,8 +209,6 @@ try:
 
             # If the issue is not in the project, proceed to add it
             if not in_project:
-                # Edge Case 8: Re-fetch repository name in case it has changed
-                column_name = re.sub(r'[^a-zA-Z0-9_\- ]', '_', repo.name)
 
                 # Attempt to find a column named after the repository
                 column = None  # Initialize the column variable
