@@ -51,7 +51,7 @@ if not installations:
 installation_id = None
 for installation in installations:
     try:
-        account = installation.get_account()
+        account = installation.account  # Corrected line
         if account.login.lower() == org_name.lower():
             installation_id = installation.id  # Get the ID of the installation for your organization
             break
@@ -201,7 +201,7 @@ try:
 
                 for card in cards:
                     try:
-                        # Compare card content URL with issue URL to check for duplicates
+                        # Compare card content ID with issue ID to check for duplicates
                         if card.get_content().id == issue.id:
                             in_project = True  # Issue is already in the project
                             break  # Exit inner loop
