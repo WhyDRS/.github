@@ -19,23 +19,11 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install PyGithub
+          pip install PyGithub==1.59
 
       - name: Run Script
         env:
           APP_ID: ${{ secrets.APP_ID }}                   # Passes the GitHub App ID from secrets
           APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }} # Passes the GitHub App private key from secrets
         run: |
-          python issue_manager_script.py  # Executes the Python script
-
-      - name: Notify on Failure
-        if: failure()  # This step runs only if the previous steps failed
-        uses: actions/github-script@v6  # Uses the github-script action to run a script
-        with:
-          script: |
-            github.issues.createComment({
-              owner: 'WhyDRS',
-              repo: '.github',      # Repository where the issue or notification will be posted
-              issue_number: 1,      # Issue number to comment on (you can create a dedicated issue)
-              body: 'The issue manager workflow failed. Please check the logs for details.'
-            })
+          python src/Issue-Manager/issue_manager_script.py  

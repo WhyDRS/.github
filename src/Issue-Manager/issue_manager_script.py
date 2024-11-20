@@ -50,9 +50,14 @@ if not installations:
 # Handle multiple installations by selecting the correct one based on the organization name
 installation_id = None
 for installation in installations:
-    if installation.account.login.lower() == org_name.lower():
-        installation_id = installation.id  # Get the ID of the installation for your organization
-        break
+    try:
+        account = installation.get_account()
+        if account.login.lower() == org_name.lower():
+            installation_id = installation.id  # Get the ID of the installation for your organization
+            break
+    except GithubException as e:
+        print(f"Failed to get account for installation {installation.id}: {e.data}")
+        continue
 
 if not installation_id:
     print(f"No installation found for organization {org_name}.")
@@ -197,12 +202,15 @@ try:
                 for card in cards:
                     try:
                         # Compare card content URL with issue URL to check for duplicates
-                        if card.content_url == issue.url:
+                        if card.get_content().id == issue.id:
                             in_project = True  # Issue is already in the project
                             break  # Exit inner loop
                     except GithubException as e:
-                        print(f"Failed to get content URL for card: {e.data}")
+                        print(f"Failed to get content for card: {e.data}")
                         continue  # Proceed to the next card
+                    except AttributeError:
+                        # Card does not have content (maybe it's a note), skip it
+                        continue
 
                 if in_project:
                     break  # Exit outer loop if issue is found
