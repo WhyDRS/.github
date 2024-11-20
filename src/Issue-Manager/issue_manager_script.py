@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import sys
 from datetime import datetime, timedelta
 from github import GithubIntegration, Github
 from github.GithubException import GithubException, RateLimitExceededException
@@ -44,7 +45,7 @@ installations = integration.get_installations()
 if not installations:
     # No installations detected for the GitHub App
     print("No installations found for the GitHub App.")
-    exit(1)  # Exit the script with an error code
+    sys.exit(1)  # Exit the script with an error code
 
 # Edge Case 25: Changes in Repository Ownership
 # Handle multiple installations by selecting the correct one based on the organization name
@@ -61,14 +62,14 @@ for installation in installations:
 
 if not installation_id:
     print(f"No installation found for organization {org_name}.")
-    exit(1)
+    sys.exit(1)
 
 # Generate an access token for the installation
 try:
     access_token = integration.get_access_token(installation_id).token
 except GithubException as e:
     print(f"Failed to get access token: {e.data}")
-    exit(1)
+    sys.exit(1)
 
 # Initialize a GitHub client using the access token
 g = Github(login_or_token=access_token)
@@ -80,14 +81,14 @@ try:
     org = g.get_organization(org_name)
 except GithubException as e:
     print(f"Failed to get organization {org_name}: {e.data}")
-    exit(1)
+    sys.exit(1)
 
 # Fetch all projects in the organization
 try:
     projects = org.get_projects()
 except GithubException as e:
     print(f"Failed to get projects for organization {org_name}: {e.data}")
-    exit(1)
+    sys.exit(1)
 
 project = None  # Initialize the project variable
 
@@ -99,7 +100,7 @@ for p in projects:
 
 if not project:
     print(f"Project number {project_number} not found.")
-    exit(1)
+    sys.exit(1)
 
 # ----------------------- Prevent Overlapping Runs ----------------------------
 
@@ -111,7 +112,7 @@ if os.path.exists(lock_file):
         os.remove(lock_file)  # Remove stale lock file
     else:
         print("Another instance of the script is already running. Exiting to prevent overlap.")
-        exit(1)
+        sys.exit(1)
 else:
     open(lock_file, 'w').close()  # Create the lock file
 
@@ -127,7 +128,7 @@ try:
         repos = org.get_repos()
     except GithubException as e:
         print(f"Failed to get repositories for organization {org_name}: {e.data}")
-        exit(1)
+        sys.exit(1)
 
     # Iterate over each repository
     for repo in repos:
