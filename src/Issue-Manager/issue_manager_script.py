@@ -8,8 +8,7 @@ from github import GithubIntegration, Github
 from github.GithubException import GithubException, RateLimitExceededException
 
 # --------------------------------- Overview ----------------------------------
-# This script automates the process of adding new issues from any repository
-# within the 'WhyDRS' organization to a specified GitHub Project (Beta).
+# [Overview comments remain unchanged]
 
 # --------------------------- Configuration Variables -------------------------
 
@@ -23,29 +22,20 @@ lock_file = '/tmp/why_drs_issue_manager.lock'
 
 # -------------------------- GitHub Authentication ----------------------------
 
+# Initialize a GitHubIntegration instance with your App ID and private key
 integration = GithubIntegration(app_id, private_key)
 
-# Fetch all installations of your GitHub App
-installations = integration.get_installations()
-
-if not installations:
-    print("No installations found for the GitHub App.")
-    sys.exit(1)
-
-# Use the installation for the organization
-installation = None
-for inst in installations:
-    if inst.account.login.lower() == org_name.lower():
-        installation = inst
-        break
-
-if not installation:
-    print(f"No installation found for organization {org_name}.")
+# Fetch the installation for your organization
+try:
+    installation = integration.get_installation(owner=org_name)
+    installation_id = installation.id
+except GithubException as e:
+    print(f"Failed to get installation for organization {org_name}: {e.data}")
     sys.exit(1)
 
 # Generate an access token for the installation
 try:
-    access_token = integration.get_access_token(installation.id).token
+    access_token = integration.get_access_token(installation_id).token
 except GithubException as e:
     print(f"Failed to get access token: {e.data}")
     sys.exit(1)
@@ -133,8 +123,6 @@ try:
     for repo in repos:
         if repo.archived or repo.fork or not repo.has_issues:
             continue
-
-        column_name = re.sub(r'[^a-zA-Z0-9_\- ]', '_', repo.name)
 
         # Fetch issues created since 'since_time'
         issues = repo.get_issues(state='open', since=since_time)
