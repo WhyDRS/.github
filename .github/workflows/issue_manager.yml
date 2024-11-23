@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install PyGithub
+          pip install PyGithub==1.58.1
 
       - name: Run Script
         env:

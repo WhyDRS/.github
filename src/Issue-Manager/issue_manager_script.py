@@ -49,15 +49,24 @@ if not installations:
 
 # Edge Case 25: Changes in Repository Ownership
 # Handle multiple installations by selecting the correct one based on the organization name
+
+# First, get the organization object to obtain its ID
+try:
+    org = Github().get_organization(org_name)
+except GithubException as e:
+    print(f"Failed to get organization {org_name}: {e.data}")
+    sys.exit(1)
+
+organization_id = org.id
+
 installation_id = None
 for installation in installations:
     try:
-        account = installation.get_account()  # Corrected line
-        if account.login.lower() == org_name.lower():
+        if installation.target_type == 'Organization' and installation.target_id == organization_id:
             installation_id = installation.id  # Get the ID of the installation for your organization
             break
     except GithubException as e:
-        print(f"Failed to get account for installation {installation.id}: {e.data}")
+        print(f"Failed to get details for installation {installation.id}: {e.data}")
         continue
 
 if not installation_id:
@@ -76,7 +85,7 @@ g = Github(login_or_token=access_token)
 
 # ----------------------- Fetch Organization and Project ----------------------
 
-# Fetch the organization object
+# Fetch the organization object using the authenticated client
 try:
     org = g.get_organization(org_name)
 except GithubException as e:
@@ -203,7 +212,8 @@ try:
                 for card in cards:
                     try:
                         # Compare card content ID with issue ID to check for duplicates
-                        if card.get_content().id == issue.id:
+                        content = card.get_content()
+                        if content and content.id == issue.id:
                             in_project = True  # Issue is already in the project
                             break  # Exit inner loop
                     except GithubException as e:
