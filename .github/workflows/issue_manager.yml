@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install PyGithub
+          pip install PyGithub requests
 
       - name: Run Script
         env:
