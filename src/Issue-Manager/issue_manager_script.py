@@ -101,7 +101,7 @@ response = requests.post(
     headers=headers
 )
 
-if response.status_code != 200:
+if response.status_code != 200 or 'errors' in response.json():
     print(f"GraphQL query failed: {response.text}")
     sys.exit(1)
 
@@ -139,26 +139,65 @@ try:
     repos = org.get_repos()
 
     for repo in repos:
+        print(f"Processing repository: {repo.full_name}")
         if repo.archived or repo.fork or not repo.has_issues:
+            print(f"Skipping repository {repo.full_name}: archived, forked, or issues disabled.")
             continue
 
-        # Fetch issues created since 'since_time'
-        issues = repo.get_issues(state='open', since=since_time)
+        # Fetch all open issues
+        issues = repo.get_issues(state='open')
 
         for issue in issues:
+            print(f"Checking issue #{issue.number} in {repo.full_name}")
+
             if issue.pull_request is not None:
+                print(f"Issue #{issue.number} is a pull request. Skipping.")
                 continue
 
             if issue.created_at < since_time:
+                print(f"Issue #{issue.number} was created before since_time. Skipping.")
                 continue
 
             labels = [label.name for label in issue.labels]
             if 'DoNotAddToProject' in labels:
+                print(f"Issue #{issue.number} has 'DoNotAddToProject' label. Skipping.")
                 continue
 
-            # Check if the issue is already in the project
+            # Get the issue's GraphQL ID
+            issue_id_query = """
+            query($owner: String!, $repo: String!, $number: Int!) {
+              repository(owner: $owner, name: $repo) {
+                issue(number: $number) {
+                  id
+                }
+              }
+            }
+            """
 
-            # GraphQL query to check if the issue is already in the project
+            variables = {
+                "owner": repo.owner.login,
+                "repo": repo.name,
+                "number": issue.number
+            }
+
+            response = requests.post(
+                graphql_url,
+                json={"query": issue_id_query, "variables": variables},
+                headers=headers
+            )
+
+            if response.status_code != 200 or 'errors' in response.json():
+                print(f"GraphQL query failed: {response.text}")
+                continue
+
+            issue_data = response.json().get("data", {}).get("repository", {}).get("issue")
+            if not issue_data:
+                print(f"Failed to get GraphQL ID for issue #{issue.number}")
+                continue
+
+            issue_graphql_id = issue_data["id"]
+
+            # Check if the issue is already in the project
             check_item_query = """
             query($projectId: ID!, $contentId: ID!) {
               node(id: $projectId) {
@@ -175,7 +214,7 @@ try:
 
             variables = {
                 "projectId": project_id,
-                "contentId": issue.node_id
+                "contentId": issue_graphql_id
             }
 
             response = requests.post(
@@ -184,13 +223,13 @@ try:
                 headers=headers
             )
 
-            if response.status_code != 200:
+            if response.status_code != 200 or 'errors' in response.json():
                 print(f"GraphQL query failed: {response.text}")
                 continue
 
             items = response.json().get("data", {}).get("node", {}).get("items", {}).get("nodes", [])
             if items:
-                # Issue is already in the project
+                print(f"Issue #{issue.number} is already in the project. Skipping.")
                 continue
 
             # Add the issue to the project
@@ -207,7 +246,7 @@ try:
             variables = {
                 "input": {
                     "projectId": project_id,
-                    "contentId": issue.node_id
+                    "contentId": issue_graphql_id
                 }
             }
 
@@ -217,7 +256,7 @@ try:
                 headers=headers
             )
 
-            if response.status_code != 200:
+            if response.status_code != 200 or 'errors' in response.json():
                 print(f"Failed to add issue #{issue.number} to project: {response.text}")
                 continue
 
