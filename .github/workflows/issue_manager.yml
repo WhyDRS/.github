@@ -1,29 +1,29 @@
-name: WhyDRS Issue Manager  # Name of the workflow
+name: WhyDRS Issue Manager
 
 on:
   schedule:
-    - cron: '0 0 * * *'    # Schedule the workflow to run once a day at midnight UTC
-  workflow_dispatch:        # Allow manual triggering of the workflow from the GitHub UI
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 jobs:
   update-project:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3  # Checks out the repository to the runner
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v4  # Sets up the Python environment
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.x'        # Specifies the Python version to use
+          python-version: '3.x'
 
       - name: Install Dependencies
         run: |
-          pip install PyGithub==1.58.1
+          pip install PyGithub
 
       - name: Run Script
         env:
-          APP_ID: ${{ secrets.APP_ID }}                   # Passes the GitHub App ID from secrets
-          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }} # Passes the GitHub App private key from secrets
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
         run: |
           python src/Issue-Manager/issue_manager_script.py
