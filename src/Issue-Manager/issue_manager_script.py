@@ -52,7 +52,7 @@ if not installations:
 installation_id = None
 for installation in installations:
     try:
-        account = installation.account  # Corrected line
+        account = installation.get_account()  # Corrected line
         if account.login.lower() == org_name.lower():
             installation_id = installation.id  # Get the ID of the installation for your organization
             break

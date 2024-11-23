@@ -19,11 +19,11 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install PyGithub==1.59
+          pip install PyGithub
 
       - name: Run Script
         env:
           APP_ID: ${{ secrets.APP_ID }}                   # Passes the GitHub App ID from secrets
           APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }} # Passes the GitHub App private key from secrets
         run: |
-          python src/Issue-Manager/issue_manager_script.py  
+          python src/Issue-Manager/issue_manager_script.py
