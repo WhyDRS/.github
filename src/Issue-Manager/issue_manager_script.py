@@ -27,7 +27,7 @@ integration = GithubIntegration(app_id, private_key)
 
 # Fetch the installation for your organization
 try:
-    installation = integration.get_installation(owner=org_name)
+    installation = integration.get_organization_installation(organization=org_name)
     installation_id = installation.id
 except GithubException as e:
     print(f"Failed to get installation for organization {org_name}: {e.data}")
