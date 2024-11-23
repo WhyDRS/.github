@@ -25,12 +25,24 @@ lock_file = '/tmp/why_drs_issue_manager.lock'
 # Initialize a GitHubIntegration instance with your App ID and private key
 integration = GithubIntegration(app_id, private_key)
 
-# Fetch the installation for your organization
-try:
-    installation = integration.get_organization_installation(organization=org_name)
-    installation_id = installation.id
-except GithubException as e:
-    print(f"Failed to get installation for organization {org_name}: {e.data}")
+# Generate a JWT (JSON Web Token) for the GitHub App
+jwt_token = integration.create_jwt()
+
+# Headers for API requests
+jwt_headers = {
+    "Authorization": f"Bearer {jwt_token}",
+    "Accept": "application/vnd.github.v3+json"
+}
+
+# Get the installation ID for the organization using the REST API
+installation_url = f"https://api.github.com/orgs/{org_name}/installation"
+response = requests.get(installation_url, headers=jwt_headers)
+
+if response.status_code == 200:
+    installation_id = response.json()['id']
+    print(f"Installation ID for {org_name} is {installation_id}")
+else:
+    print(f"Failed to get installation ID for organization {org_name}: {response.text}")
     sys.exit(1)
 
 # Generate an access token for the installation
@@ -40,6 +52,7 @@ except GithubException as e:
     print(f"Failed to get access token: {e.data}")
     sys.exit(1)
 
+# Headers for GraphQL API requests using the access token
 headers = {
     "Authorization": f"Bearer {access_token}",
     "Accept": "application/vnd.github.starfox-preview+json"  # Required for Projects (Beta) API
