@@ -3,8 +3,8 @@ import re
 import time
 import sys
 import requests
-from datetime import datetime, timedelta
-from github import GithubIntegration, Github
+from datetime import datetime, timedelta, timezone
+from github import GithubIntegration, Github, Auth
 from github.GithubException import GithubException, RateLimitExceededException
 
 # --------------------------------- Overview ----------------------------------
@@ -22,11 +22,16 @@ lock_file = '/tmp/why_drs_issue_manager.lock'
 
 # -------------------------- GitHub Authentication ----------------------------
 
-# Initialize a GitHubIntegration instance with your App ID and private key
-integration = GithubIntegration(app_id, private_key)
+# Initialize an Auth.AppAuth instance
+auth = Auth.AppAuth(
+    app_id=int(app_id),
+    private_key=private_key,
+)
 
-# Generate a JWT (JSON Web Token) for the GitHub App
-jwt_token = integration.create_jwt()
+jwt_token = auth.token  # This generates the JWT
+
+# Initialize GithubIntegration
+integration = GithubIntegration(app_id, private_key)
 
 # Headers for API requests
 jwt_headers = {
@@ -125,8 +130,8 @@ else:
 # -------------------------- Main Processing Loop -----------------------------
 
 try:
-    since_time = datetime.utcnow() - timedelta(days=1, minutes=5)
-    since_time_iso = since_time.isoformat() + 'Z'
+    since_time = datetime.now(timezone.utc) - timedelta(days=1, minutes=5)
+    since_time_iso = since_time.isoformat()
 
     # Fetch all repositories within the organization
     g = Github(access_token)
@@ -152,7 +157,6 @@ try:
                 continue
 
             # Check if the issue is already in the project
-            # Since Projects (Beta) doesn't have columns like classic projects, we'll add the issue directly
 
             # GraphQL query to check if the issue is already in the project
             check_item_query = """
