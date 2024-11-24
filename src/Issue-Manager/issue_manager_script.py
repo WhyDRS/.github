@@ -199,11 +199,15 @@ try:
 
             # Check if the issue is already in the project
             check_item_query = """
-            query($projectId: ID!, $contentId: ID!) {
-              node(id: $projectId) {
-                ... on ProjectV2 {
-                  itemByContent(contentId: $contentId) {
-                    id
+            query($issueId: ID!) {
+              node(id: $issueId) {
+                ... on Issue {
+                  projectItems(first: 100) {
+                    nodes {
+                      project {
+                        id
+                      }
+                    }
                   }
                 }
               }
@@ -211,8 +215,7 @@ try:
             """
 
             variables = {
-                "projectId": project_id,
-                "contentId": issue_graphql_id
+                "issueId": issue_graphql_id
             }
 
             response = requests.post(
@@ -225,8 +228,15 @@ try:
                 print(f"GraphQL query failed: {response.text}")
                 continue
 
-            item = response.json().get("data", {}).get("node", {}).get("itemByContent")
-            if item:
+            project_items = response.json().get("data", {}).get("node", {}).get("projectItems", {}).get("nodes", [])
+
+            already_in_project = False
+            for item in project_items:
+                if item.get("project", {}).get("id") == project_id:
+                    already_in_project = True
+                    break
+
+            if already_in_project:
                 print(f"Issue #{issue.number} is already in the project. Skipping.")
                 continue
 
