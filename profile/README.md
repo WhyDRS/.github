@@ -7,3 +7,5 @@ WhyDRS is a free educational resource about the financial markets in the United 
 ## Current Projects
 
 [![Project Board](https://img.shields.io/badge/Project-Boards-blue)](https://github.com/orgs/whydrs/projects)
+
+[![Weekly Podcast](https://img.shields.io/badge/Weekly-Podcast-purple)](https://linktr.ee/takingstockpodcast)
