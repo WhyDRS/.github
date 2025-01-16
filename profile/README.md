@@ -8,7 +8,7 @@ WhyDRS is a free educational resource about the financial markets in the United 
 
 If you'd like to help with the organization in any aspect, please check out the Project Board below for open issues across all repositories. If you'd like to assign yourself an issue, please @ [one of the admins](https://github.com/orgs/WhyDRS/people) to let them know to update the issue.
 
-[![Project Board](https://img.shields.io/badge/Project-Boards-blue)](https://github.com/orgs/whydrs/projects)
+[![Project Board](https://img.shields.io/badge/Project-Boards-blue)](https://github.com/orgs/WhyDRS/projects/3)
 
 [![Weekly Podcast](https://img.shields.io/badge/Weekly-Podcast-purple)](https://linktr.ee/takingstockpodcast)
 
