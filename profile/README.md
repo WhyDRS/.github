@@ -6,6 +6,8 @@ WhyDRS is a free educational resource about the financial markets in the United 
 
 ## Current Projects
 
+If you'd like to help with the organization in any aspect, please check out the Project Board below for open issues across all repositories. If you'd like to assign yourself an issue, please @ [one of the admins](https://github.com/orgs/WhyDRS/people) to let them know to update the issue.
+
 [![Project Board](https://img.shields.io/badge/Project-Boards-blue)](https://github.com/orgs/whydrs/projects)
 
 [![Weekly Podcast](https://img.shields.io/badge/Weekly-Podcast-purple)](https://linktr.ee/takingstockpodcast)
@@ -15,3 +17,19 @@ WhyDRS is a free educational resource about the financial markets in the United 
 Help us draft new financial policies!
 
 [Transfer agent regulations](https://github.com/WhyDRS/SEC-Comments/blob/main/TAR-S7-27-15.md)
+
+## Repositories
+
+https://github.com/WhyDRS/Database
+
+https://github.com/WhyDRS/SEC-Comments
+
+https://github.com/WhyDRS/Taking-Stock
+
+https://github.com/WhyDRS/DUNA-docs
+
+https://github.com/WhyDRS/.github
+
+https://github.com/WhyDRS/SEC-Petitions
+
+https://github.com/WhyDRS/wix-site-public
