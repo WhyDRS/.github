@@ -16,7 +16,7 @@ Help us draft new financial policies!
 
 [Transfer agent regulations](https://github.com/WhyDRS/SEC-Comments/blob/main/TAR-S7-27-15.md)
 
-##Repositories
+## Repositories
 
 https://github.com/WhyDRS/Database
 
