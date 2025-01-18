@@ -22,22 +22,22 @@ Help us draft new financial policies!
 
 ## Repositories
 
-https://github.com/WhyDRS/Database - Operations and code for [database.whydrs.org](https://database.whydrs.org/), a free and constantly growing resource built by volunteers.
+[Database](https://github.com/WhyDRS/Database) – Operations and code for [database.whydrs.org](https://database.whydrs.org/), a free and constantly growing resource built by volunteers.
 
-https://github.com/WhyDRS/SEC-Comments - Ideas for regulatory improvement to be submitted through the SEC Comments portal.
+[SEC Comments](https://github.com/WhyDRS/SEC-Comments) – Ideas for regulatory improvement to be submitted through the SEC Comments portal.
 
-https://github.com/WhyDRS/SEC-Petitions - Ideas for regulatory improvement to be submitted through the SEC Petitions portal.
+[SEC Petitions](https://github.com/WhyDRS/SEC-Petitions) – Ideas for regulatory improvement to be submitted through the SEC Petitions portal.
 
-https://github.com/WhyDRS/Taking-Stock - Episode Guide, Guest Suggestions and [RSS Feed](https://github.com/Taking-Stock/RSSfeed/blob/main/Taking-Stock-RSS-Feed.xml)
+[Taking Stock](https://github.com/WhyDRS/Taking-Stock) – Episode Guide, Guest Suggestions, and [RSS Feed](https://github.com/Taking-Stock/RSSfeed/blob/main/Taking-Stock-RSS-Feed.xml).
 
-https://github.com/WhyDRS/DUNA-docs - DUNA discussion, including governance and tokenomics. WhyDRS is the first American DUNA. 
+[DUNA Docs](https://github.com/WhyDRS/DUNA-docs) – DUNA discussion, including governance and tokenomics. WhyDRS is the first American DUNA. 
 
-https://github.com/WhyDRS/.github - You are here! Issues and code related to GitHub maintenance.
+[GitHub Maintenance](https://github.com/WhyDRS/.github) – Issues and code related to GitHub maintenance.
 
-https://github.com/WhyDRS/wix-site-public - Suggestions, Glitch Reporting, and Feature Requests for our main site at [WhyDRS.org](https://www.whydrs.org/).
+[Wix Site Public](https://github.com/WhyDRS/wix-site-public) – Suggestions, Glitch Reporting, and Feature Requests for our main site at [WhyDRS.org](https://www.whydrs.org/).
 
 ## Other Social Media
 
-Discord - https://mee6.xyz/i/xyGz2buGJR
-Lemmy - https://lemmy.whynotdrs.org/
-X - https://twitter.com/whydrs
+- [Discord](https://mee6.xyz/i/xyGz2buGJR)  
+- [Lemmy](https://lemmy.whynotdrs.org/)  
+- [X (Twitter)](https://twitter.com/whydrs)  
