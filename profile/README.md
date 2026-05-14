@@ -29,7 +29,7 @@ We also host a podcast, Taking Stock, which is usually held on the WhyDRS X acco
 
 Help us draft new financial policies!
 
-[Transfer agent regulations](https://github.com/WhyDRS/SEC-Comments/blob/main/TAR-S7-27-15.md) - How can Transfer Agent Regulations be meaningfully improved by modern technology such as Blockchain? Bringing the SEC and other incumbents to the table to talk.
+[Transfer agent regulations](https://github.com/WhyDRS/SEC-Comments/tree/main/pending/S7-27-15) - How can Transfer Agent Regulations be meaningfully improved by modern technology such as Blockchain? Bringing the SEC and other incumbents to the table to talk.
 
 ## Prior Regulatory Work
 
