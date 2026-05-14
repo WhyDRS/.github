@@ -1,6 +1,9 @@
 <div align="center">
-<a href="https://www.whydrs.org"><img alt="WhyDRS | Direct Register Your Shares to Protect Your Investment" src="https://dao.whydrs.org/imgs/brand/jpg/url-rounded.jpg" width="300" /></a>
-<br/></div>
+  <a href="https://www.whydrs.org">
+    <img alt="WhyDRS | Direct Register Your Shares to Protect Your Investment" src="https://dao.whydrs.org/imgs/brand/jpg/url-rounded.jpg" width="300" />
+  </a>
+  <br/>
+</div>
 
 WhyDRS is a free educational resource about the financial markets in the United States – specifically direct registration, a method of personal ownership available to everyone but rarely used. Keeping long investments in your own name - [with the SEC approved Direct Registration System](https://www.sec.gov/resources-for-investors/investor-alerts-bulletins/investorpubsholdsechtm) - provides multiple benefits and safeties not available through other means.
 
@@ -26,7 +29,7 @@ We also host a podcast, Taking Stock, which is usually held on the WhyDRS X acco
 
 Help us draft new financial policies!
 
-[Transfer agent regulations](https://github.com/WhyDRS/SEC-Comments/blob/main/TAR-S7-27-15.md) - How can Transfer Agent Regulations be meaningfully improved by modern technology such as Blockchain? Bringing the SEC and other incumbents to the table to talk.
+[Transfer agent regulations](https://github.com/WhyDRS/SEC-Comments/tree/main/pending/S7-27-15) - How can Transfer Agent Regulations be meaningfully improved by modern technology such as Blockchain? Bringing the SEC and other incumbents to the table to talk.
 
 ## Prior Regulatory Work
 
@@ -34,25 +37,19 @@ Help us draft new financial policies!
 
 [NSCC Close Out Policy Petition](https://github.com/WhyDRS/SEC-Petitions/blob/main/nscc-close-out-transparency.md) - This petition draws attention to [NSCC Rules 18 and 22](https://www.dtcc.com/~/media/Files/Downloads/legal/rules/nscc_rules.pdf) whose language is not as clear or ironclad as it could be concerning member and position settlement.
 
+[OCC Advance Notice Comment](https://github.com/WhyDRS/SEC-Comments/tree/main/SR-OCC-2025-801) - This published comment on SR-OCC-2025-801 addresses liquidity-facility counterparty rehypothecation and related risks in clearing agency insolvency, custody, and market structure.
+
 ## Repositories
 
-[Database](https://github.com/WhyDRS/Database) – Operations and code for [database.whydrs.org](https://database.whydrs.org/), a free and constantly growing resource built by volunteers.
-
-[SEC Comments](https://github.com/WhyDRS/SEC-Comments) – Ideas for regulatory improvement to be submitted through the SEC Comments portal.
-
-[SEC Petitions](https://github.com/WhyDRS/SEC-Petitions) – Ideas and collaboration for regulatory improvement to be submitted through the SEC Petitions portal. Check out the [SEC Petitions Guide](https://www.whydrs.org/sec-petitions-for-rule-updates) at WhyDRS.org for more info about how you could get submit your own!
-
-[Taking Stock](https://github.com/WhyDRS/Taking-Stock) – Episode Guide, Guest Suggestions, and [RSS Feed](https://github.com/Taking-Stock/RSSfeed/blob/main/Taking-Stock-RSS-Feed.xml).
-
-[DUNA Docs](https://github.com/WhyDRS/DUNA-docs) – DUNA discussion, including governance and tokenomics. WhyDRS is the first American DUNA. 
-
-[GitHub Maintenance](https://github.com/WhyDRS/.github) – Issues and code related to GitHub maintenance.
-
-[Wix Site Public](https://github.com/WhyDRS/wix-site-public) – Suggestions, Glitch Reporting, and Feature Requests for our main site at [WhyDRS.org](https://www.whydrs.org/).
-
-[Newsletter](https://github.com/WhyDRS/Newsletter) - Decentralized writing of well sourced articles and perspectives, along with where to find updates from existing bodies like FINRA or the SEC, and providing opt in RSS feeds.
-
-[Documents](https://github.com/WhyDRS/documents) - A place to keep track of and organize helpful sources, or host them if appropriate.
+- [Database](https://github.com/WhyDRS/Database) - Operations and code for [database.whydrs.org](https://database.whydrs.org), a free and constantly growing resource built by volunteers.
+- [SEC Comments](https://github.com/WhyDRS/SEC-Comments) - Ideas for regulatory improvement to be submitted through the SEC Comments portal.
+- [SEC Petitions](https://github.com/WhyDRS/SEC-Petitions) - Ideas and collaboration for regulatory improvement to be submitted through the SEC Petitions portal. Check out the [SEC Petitions Guide](https://www.whydrs.org/sec-petitions-for-rule-updates) at WhyDRS.org for more info about how you could submit your own!
+- [Taking Stock](https://github.com/WhyDRS/Taking-Stock) - Episode guide, guest suggestions, and [RSS feed](https://github.com/Taking-Stock/RSSfeed/blob/main/Taking-Stock-RSS-Feed.xml).
+- [DUNA Docs](https://github.com/WhyDRS/DUNA-docs) - DUNA discussion, including governance and tokenomics. WhyDRS is the first American DUNA.
+- [GitHub Maintenance](https://github.com/WhyDRS/.github) - Issues and code related to GitHub maintenance.
+- [Wix Site Public](https://github.com/WhyDRS/wix-site-public) - Suggestions, glitch reporting, and feature requests for our main site at [WhyDRS.org](https://www.whydrs.org).
+- [Newsletter](https://github.com/WhyDRS/Newsletter) - Decentralized writing of well-sourced articles and perspectives, along with where to find updates from existing bodies like FINRA or the SEC, and providing opt-in RSS feeds.
+- [Documents](https://github.com/WhyDRS/documents) - A place to keep track of and organize helpful sources or host them if appropriate.
 
 ## Other Social Media
 
