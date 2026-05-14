@@ -37,6 +37,8 @@ Help us draft new financial policies!
 
 [NSCC Close Out Policy Petition](https://github.com/WhyDRS/SEC-Petitions/blob/main/nscc-close-out-transparency.md) - This petition draws attention to [NSCC Rules 18 and 22](https://www.dtcc.com/~/media/Files/Downloads/legal/rules/nscc_rules.pdf) whose language is not as clear or ironclad as it could be concerning member and position settlement.
 
+[OCC Advance Notice Comment](https://github.com/WhyDRS/SEC-Comments/tree/main/SR-OCC-2025-801) - This published comment on SR-OCC-2025-801 addresses liquidity-facility counterparty rehypothecation and related risks in clearing agency insolvency, custody, and market structure.
+
 ## Repositories
 
 - [Database](https://github.com/WhyDRS/Database) - Operations and code for [database.whydrs.org](https://database.whydrs.org), a free and constantly growing resource built by volunteers.
